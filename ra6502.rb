@@ -350,7 +350,7 @@ class Assembler
 		file = File.open(path, 'r').read
 		@@operations = {}
 		file.each_line do |line|
-			out = /\$([0-9a-f]*) "(\w\w\w)\s?(.*)"/.match(line)
+			out = /\$([0-9a-f]*) "(\w\w\w\d?)\s?(.*)"/.match(line)
 			add_opcode(@@operations, out)
 		end
     @@operations

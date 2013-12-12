@@ -2,9 +2,6 @@ Description
 ===========
 ra6502 is a simple 6502 assembler made as a learning exercise in Ruby. It doesn't look like Ruby. I plan to include a dissassembler and simulator in the near future.
 
-Usage
-============
-
 ```ruby
 test_program = 'LDX #$08
 decrement:
@@ -16,7 +13,8 @@ decrement:
   BRK
   JMP test'
 asm = Assembler.new(0x600) #program starts at 600
-asm.assemble(test_program) #assemble program
+puts asm.assemble(test_program) #assemble program
+#outputs: a2 08 ca 8e 00 02 e0 03 d0 f8 8e 01 02 00 4c 02 06
 asm.output('test.bin') #write to test.bin file
 ```
 

@@ -1,4 +1,4 @@
-require '../ra6502'
+require './ra6502'
 
 tests = [';test program
 loop:
