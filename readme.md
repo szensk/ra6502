@@ -23,10 +23,7 @@ asm.output('test.bin') #write to test.bin file
 Opcode File
 ==================
 
-If you want to add a new type of derivative 6502 assembly, simply look at opcodes_6502.txt to look how to define more.
-
-Format
-------
+If you want to add a new type of derivative 6502 assembly, simply look at opcodes_6502.txt to look how to define more. The format:
 
 ```
 $hh "WWW args"
@@ -40,5 +37,9 @@ Stand-ins
 ---------
 * '^': label (offset, 1 byte)
 
-* '?': label (address, 2 byte)
+* '_': label (address, 2 byte)
+
+* '?': two byte value
+
+* 'x' or 'y': one byte value
 
