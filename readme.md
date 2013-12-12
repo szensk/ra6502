@@ -1,6 +1,6 @@
 Description
 ===========
-ra6502 is a 6502 assembler made as a learning exercise in Ruby. It doesn't look like Ruby.
+ra6502 is a simple 6502 assembler made as a learning exercise in Ruby. It doesn't look like Ruby. I plan to include a dissassembler and simulator in the near future.
 
 Usage
 ============
