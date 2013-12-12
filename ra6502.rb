@@ -380,4 +380,3 @@ class Assembler
 		args.gsub('_', '[a-zA-Z0-9_]*')
 	end
 end
-

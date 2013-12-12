@@ -1,5 +1,6 @@
 require './ra6502'
 
+#examples
 tests = [';test program
 loop:
 LDA #$ff ;test junk
@@ -28,9 +29,9 @@ decrement:
   BRK
   JMP decrement']
 
+#generated hash
   operations = {"BRK"=>
-  [{:opcode=>"BRK", :hex=>"00", :args=>"", :bytes=>1},
-   {:opcode=>"BRK", :hex=>"00", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2}],
+  [{:opcode=>"BRK", :hex=>"00", :args=>"", :bytes=>1}],
  "ORA"=>
   [{:opcode=>"ORA", :hex=>"01", :args=>"(\\$[0-9a-fA-F]{2},X)", :bytes=>2},
    {:opcode=>"ORA", :hex=>"05", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},

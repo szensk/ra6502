@@ -1,5 +1,4 @@
 $00 "BRK"
-$00 "BRK x"
 $01 "ORA (x,X)"
 $05 "ORA x"
 $06 "ASL x"
