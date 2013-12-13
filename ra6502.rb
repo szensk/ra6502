@@ -5,7 +5,7 @@ require 'ostruct'
 # a Ruby learning exercise
 # public domain
 class Assembler
-	@@operations = {"BRK"=>
+  @@operations = {"BRK"=>
   [{:opcode=>"BRK", :hex=>"00", :args=>"", :bytes=>1},
    {:opcode=>"BRK", :hex=>"00", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2}],
  "ORA"=>
@@ -229,154 +229,154 @@ class Assembler
     :bytes=>2}],
  "SED"=>[{:opcode=>"SED", :hex=>"f8", :args=>"", :bytes=>1}]}
 
-	attr_accessor :start, :input, :program, :result
+  attr_accessor :start, :input, :program, :result
 
-	def initialize(program_start = 0)
-		@start = program_start
-	end
+  def initialize(program_start = 0)
+    @start = program_start
+  end
 
-	def assemble(input)
-		@input = input || ""
-		remove_comments
-		@program = parse_labels
-		@result = ""
-		count = @start || 0
-		@bytes = 0
-		@input.each_line do |line|
-			op = /([A-Z]{3})\s?([^\s]*)/.match(line)
-			if op then
-				raise "No operation" unless @@operations[op[1]]
-				@@operations[op[1]].each do |opcode|
-					r = Regexp.new(opcode[:args])
-					match = r.match(op[2])
-					if match and match.to_s.size == op[2].size #full match only
-						@result << format_opcode(opcode, op[2]) + " "
-						@bytes += opcode[:bytes]
-						@program.lines[count] = @bytes
-						count +=1
-						break
-					end
-				end
-			end
-		end
-		puts "Successfully assembled." + " Bytes: " + @bytes.to_s
-		return @result
-	end
+  def assemble(input)
+    @input = input || ""
+    remove_comments
+    @program = parse_labels
+    @result = ""
+    count = @start || 0
+    @bytes = 0
+    @input.each_line do |line|
+      op = /([A-Z]{3})\s?([^\s]*)/.match(line)
+      if op then
+        raise "No operation" unless @@operations[op[1]]
+        @@operations[op[1]].each do |opcode|
+          r = Regexp.new(opcode[:args])
+          match = r.match(op[2])
+          if match and match.to_s.size == op[2].size #full match only
+            @result << format_opcode(opcode, op[2]) + " "
+            @bytes += opcode[:bytes]
+            @program.lines[count] = @bytes
+            count +=1
+            break
+          end
+        end
+      end
+    end
+    puts "Successfully assembled." + " Bytes: " + @bytes.to_s
+    return @result
+  end
 
-	def format_label(ops, bytes)
-		if @program.labels[ops] then
-			target = @program.lines[@program.labels[ops] - 1] || 0
-			if bytes == 3 then
-				ops = "%04x" % (target + @start)
-			else
-				target = @program.lines[@program.labels[ops] - 1] || @bytes
-				target = 254 - (@bytes - target) #255 - 1 because the current byte must be jumped behind
-				ops = "%02x" % target
-			end
-		end
-		ops
-	end
+  def format_label(ops, bytes)
+    if @program.labels[ops] then
+      target = @program.lines[@program.labels[ops] - 1] || 0
+      if bytes == 3 then
+        ops = "%04x" % (target + @start)
+      else
+        target = @program.lines[@program.labels[ops] - 1] || @bytes
+        target = 254 - (@bytes - target) #255 - 1 because the current byte must be jumped behind
+        ops = "%02x" % target
+      end
+    end
+    ops
+  end
 
-	def format_opcode(opcode, ops)
-		bytes = opcode[:bytes]
-		ops = ops.gsub('$', "")
-		ops = ops.gsub('#', "")
-		res = "#{opcode[:hex]}"
-		ops = format_label(ops, bytes)
-		if bytes == 1 then
-			return res
-		elsif bytes == 2
-			res << " " + ops
-		else
-			res << " " + ops[2..3] + " " + ops[0..1]
-		end
-		res
-	end
+  def format_opcode(opcode, ops)
+    bytes = opcode[:bytes]
+    ops = ops.gsub('$', "")
+    ops = ops.gsub('#', "")
+    res = "#{opcode[:hex]}"
+    ops = format_label(ops, bytes)
+    if bytes == 1 then
+      return res
+    elsif bytes == 2
+      res << " " + ops
+    else
+      res << " " + ops[2..3] + " " + ops[0..1]
+    end
+    res
+  end
 
-	def remove_comments
-		res = ""
-		@input.each_line do |line|
-			i = line.index(';')
-			if i then
-				res << line[0,i] + "\n"
-			else
-				res << line
-			end
-		end
-		@input = res
-	end
+  def remove_comments
+    res = ""
+    @input.each_line do |line|
+      i = line.index(';')
+      if i then
+        res << line[0,i] + "\n"
+      else
+        res << line
+      end
+    end
+    @input = res
+  end
 
-	def parse_labels
-		res = OpenStruct.new
-		res.labels = {}
-		res.lines = {}
-		result = ""
-		count = @start
-		@input.each_line do |line|
-			stripped = line.strip
-			match = /([a-zA-Z0-9_]*):(.*)/.match(line)
-			if match then
-				res.labels[match[1]] = count
-				if match[2] then
-					count += 1
-					result << match[2] + "\n"
-				end
-			elsif stripped != ""
-				count += 1
-				result << line
-			end
-		end
-		@input = result
-		@program = res
-	end
+  def parse_labels
+    res = OpenStruct.new
+    res.labels = {}
+    res.lines = {}
+    result = ""
+    count = @start
+    @input.each_line do |line|
+      stripped = line.strip
+      match = /([a-zA-Z0-9_]*):(.*)/.match(line)
+      if match then
+        res.labels[match[1]] = count
+        if match[2] then
+          count += 1
+          result << match[2] + "\n"
+        end
+      elsif stripped != ""
+        count += 1
+        result << line
+      end
+    end
+    @input = result
+    @program = res
+  end
 
-	def output(path)
-		res = @result.split("\s")
-		File.open(path, 'wb') do |file|
-			count = 0
-			file << ("%04x: " % @start)
-			res.each do |byte|
-				count += 1
-				file << byte
-				file << " " if count % 2 == 0
-		    	file << ("\n%04x: " % (@start + count)) if count % 16 == 0
-			end
-		end
-		puts "Successfully wrote to file: " + path
-	end
+  def output(path)
+    res = @result.split("\s")
+    File.open(path, 'wb') do |file|
+      count = 0
+      file << ("%04x: " % @start)
+      res.each do |byte|
+        count += 1
+        file << byte
+        file << " " if count % 2 == 0
+          file << ("\n%04x: " % (@start + count)) if count % 16 == 0
+      end
+    end
+    puts "Successfully wrote to file: " + path
+  end
 
-	#generate opcode hash from text file
-	def generate_operations(path = 'opcodes_6502.txt')
-		file = File.open(path, 'r').read
-		@@operations = {}
-		file.each_line do |line|
-			out = /\$([0-9a-f]*) "(\w\w\w\d?)\s?(.*)"/.match(line)
-			add_opcode(@@operations, out)
-		end
+  #generate opcode hash from text file
+  def generate_operations(path = 'opcodes_6502.txt')
+    file = File.open(path, 'r').read
+    @@operations = {}
+    file.each_line do |line|
+      out = /\$([0-9a-f]*) "(\w\w\w\d?)\s?(.*)"/.match(line)
+      add_opcode(@@operations, out)
+    end
     @@operations
-	end
+  end
 
-	private
-	def get_bytes(args)
-		bytes = 2
-		bytes = 1 if args == "" || args == "A"
-		bytes += 1 if args.include?("?")
-		bytes += 1 if args.include?("_")
-		bytes
-	end
+  private
+  def get_bytes(args)
+    bytes = 2
+    bytes = 1 if args == "" || args == "A"
+    bytes += 1 if args.include?("?")
+    bytes += 1 if args.include?("_")
+    bytes
+  end
 
-	def add_opcode(operations, out)
-		bytes = get_bytes(out[3])
-		arguments = regexp_args(out[3])
-		operations[out[2]] = [] unless operations[out[2]]
-		operations[out[2]] << {opcode: out[2], hex: out[1], args: arguments, bytes: bytes}
-	end
+  def add_opcode(operations, out)
+    bytes = get_bytes(out[3])
+    arguments = regexp_args(out[3])
+    operations[out[2]] = [] unless operations[out[2]]
+    operations[out[2]] << {opcode: out[2], hex: out[1], args: arguments, bytes: bytes}
+  end
 
-	def regexp_args(args)
-		args = args.gsub('x', '\$[0-9a-fA-F]{2}')
-		args = args.gsub('y', '\$[0-9a-fA-F]{2}')
-		args = args.gsub('?', '\$[0-9a-fA-F]{4}')
-		args = args.gsub('^', '[a-zA-Z0-9_]*')
-		args.gsub('_', '[a-zA-Z0-9_]*')
-	end
+  def regexp_args(args)
+    args = args.gsub('x', '\$[0-9a-fA-F]{2}')
+    args = args.gsub('y', '\$[0-9a-fA-F]{2}')
+    args = args.gsub('?', '\$[0-9a-fA-F]{4}')
+    args = args.gsub('^', '[a-zA-Z0-9_]*')
+    args.gsub('_', '[a-zA-Z0-9_]*')
+  end
 end
