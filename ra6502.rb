@@ -392,10 +392,14 @@ class Assembler
   end
 
   def regexp_args(args)
+    args = args.gsub('#x', '#\$[0-9a-fA-F]{2}|#[0-9a-fA-F]{2}')
+    args = args.gsub('#y', '#\$[0-9a-fA-F]{2}|#[0-9a-fA-F]{2}')
     args = args.gsub('x', '\$[0-9a-fA-F]{2}')
     args = args.gsub('y', '\$[0-9a-fA-F]{2}')
     args = args.gsub('?', '\$[0-9a-fA-F]{4}')
     args = args.gsub('^', '[a-zA-Z0-9_]*')
+    args = args.gsub('(', '\(')
+    args = args.gsub(')', '\)')
     args.gsub('_', '[a-zA-Z0-9_]*')
   end
 end

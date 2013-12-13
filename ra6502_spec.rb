@@ -269,6 +269,11 @@ describe Assembler do
   before :each do
     @asm = Assembler.new(0x600)
   end
+  describe '#generate_operations' do
+    it "should generate operations" do
+      @asm.generate_operations #this is impossible to check, yea?
+    end
+  end
   describe '#assemble' do
     it "handles comments and 2 byte label jumps" do
       (@asm.assemble(tests[0])).should == ("a9 ff aa e8 00 e8 4c 00 06 ")
