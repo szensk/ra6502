@@ -2,3 +2,4 @@
 *.lua
 genlua.rb
 opcodes_65c02.txt
+simgen.rb

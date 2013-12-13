@@ -330,16 +330,20 @@ class Assembler
     @program = res
   end
 
-  def output(path)
+  def output(path, mode = :binary)
     res = @result.split("\s")
     File.open(path, 'wb') do |file|
-      count = 0
-      file << ("%04x: " % @start)
-      res.each do |byte|
-        count += 1
-        file << byte
-        file << " " if count % 2 == 0
+      if mode == :binary then
+        file.write [res.join].pack("H*")
+      else
+        count = 0
+        file << ("%04x: " % @start)
+        res.each do |byte|
+          count += 1
+          file << byte
+          file << " " if count % 2 == 0
           file << ("\n%04x: " % (@start + count)) if count % 16 == 0
+        end
       end
     end
     puts "Successfully wrote to file: " + path
