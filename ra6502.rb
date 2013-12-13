@@ -9,11 +9,11 @@ class Assembler
   [{:opcode=>"BRK", :hex=>"00", :args=>"", :bytes=>1},
    {:opcode=>"BRK", :hex=>"00", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2}],
  "ORA"=>
-  [{:opcode=>"ORA", :hex=>"01", :args=>"(\\$[0-9a-fA-F]{2},X)", :bytes=>2},
+  [{:opcode=>"ORA", :hex=>"01", :args=>"\\(\\$[0-9a-fA-F]{2},X\\)", :bytes=>2},
    {:opcode=>"ORA", :hex=>"05", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"ORA", :hex=>"09", :args=>"#\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"ORA", :hex=>"0d", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
-   {:opcode=>"ORA", :hex=>"11", :args=>"(\\$[0-9a-fA-F]{2}),Y", :bytes=>2},
+   {:opcode=>"ORA", :hex=>"11", :args=>"\\(\\$[0-9a-fA-F]{2}\\),Y", :bytes=>2},
    {:opcode=>"ORA", :hex=>"15", :args=>"\\$[0-9a-fA-F]{2},X", :bytes=>2},
    {:opcode=>"ORA", :hex=>"19", :args=>"\\$[0-9a-fA-F]{4},Y", :bytes=>3},
    {:opcode=>"ORA", :hex=>"1d", :args=>"\\$[0-9a-fA-F]{4},X", :bytes=>3}],
@@ -36,11 +36,11 @@ class Assembler
   [{:opcode=>"JSR", :hex=>"20", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
    {:opcode=>"JSR", :hex=>"20", :args=>"[a-zA-Z0-9_]*", :bytes=>3}],
  "AND"=>
-  [{:opcode=>"AND", :hex=>"21", :args=>"(\\$[0-9a-fA-F]{2},X)", :bytes=>2},
+  [{:opcode=>"AND", :hex=>"21", :args=>"\\(\\$[0-9a-fA-F]{2},X\\)", :bytes=>2},
    {:opcode=>"AND", :hex=>"25", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"AND", :hex=>"29", :args=>"#\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"AND", :hex=>"2d", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
-   {:opcode=>"AND", :hex=>"31", :args=>"(\\$[0-9a-fA-F]{2}),Y", :bytes=>2},
+   {:opcode=>"AND", :hex=>"31", :args=>"\\(\\$[0-9a-fA-F]{2}\\),Y", :bytes=>2},
    {:opcode=>"AND", :hex=>"35", :args=>"\\$[0-9a-fA-F]{2},X", :bytes=>2},
    {:opcode=>"AND", :hex=>"39", :args=>"\\$[0-9a-fA-F]{4},Y", :bytes=>3},
    {:opcode=>"AND", :hex=>"3d", :args=>"\\$[0-9a-fA-F]{4},X", :bytes=>3}],
@@ -64,11 +64,11 @@ class Assembler
  "SEC"=>[{:opcode=>"SEC", :hex=>"38", :args=>"", :bytes=>1}],
  "RTI"=>[{:opcode=>"RTI", :hex=>"40", :args=>"", :bytes=>1}],
  "EOR"=>
-  [{:opcode=>"EOR", :hex=>"41", :args=>"(\\$[0-9a-fA-F]{2},X)", :bytes=>2},
+  [{:opcode=>"EOR", :hex=>"41", :args=>"\\(\\$[0-9a-fA-F]{2},X\\)", :bytes=>2},
    {:opcode=>"EOR", :hex=>"45", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"EOR", :hex=>"49", :args=>"#\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"EOR", :hex=>"4d", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
-   {:opcode=>"EOR", :hex=>"51", :args=>"(\\$[0-9a-fA-F]{2}),Y", :bytes=>2},
+   {:opcode=>"EOR", :hex=>"51", :args=>"\\(\\$[0-9a-fA-F]{2}\\),Y", :bytes=>2},
    {:opcode=>"EOR", :hex=>"55", :args=>"\\$[0-9a-fA-F]{2},X", :bytes=>2},
    {:opcode=>"EOR", :hex=>"59", :args=>"\\$[0-9a-fA-F]{4},Y", :bytes=>3},
    {:opcode=>"EOR", :hex=>"5d", :args=>"\\$[0-9a-fA-F]{4},X", :bytes=>3}],
@@ -83,8 +83,8 @@ class Assembler
  "JMP"=>
   [{:opcode=>"JMP", :hex=>"4c", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
    {:opcode=>"JMP", :hex=>"4c", :args=>"[a-zA-Z0-9_]*", :bytes=>3},
-   {:opcode=>"JMP", :hex=>"6c", :args=>"(\\$[0-9a-fA-F]{4})", :bytes=>3},
-   {:opcode=>"JMP", :hex=>"6c", :args=>"([a-zA-Z0-9_]*)", :bytes=>3}],
+   {:opcode=>"JMP", :hex=>"6c", :args=>"\\(\\$[0-9a-fA-F]{4}\\)", :bytes=>3},
+   {:opcode=>"JMP", :hex=>"6c", :args=>"\\([a-zA-Z0-9_]*\\)", :bytes=>3}],
  "BVC"=>
   [{:opcode=>"BVC", :hex=>"50", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"BVC",
@@ -94,11 +94,12 @@ class Assembler
  "CLI"=>[{:opcode=>"CLI", :hex=>"58", :args=>"", :bytes=>1}],
  "RTS"=>[{:opcode=>"RTS", :hex=>"60", :args=>"", :bytes=>1}],
  "ADC"=>
-  [{:opcode=>"ADC", :hex=>"61", :args=>"(\\$[0-9a-fA-F]{2},X)", :bytes=>2},
+  [{:opcode=>"ADC", :hex=>"61", :args=>"\\(\\$[0-9a-fA-F]{2},X\\)", :bytes=>2},
    {:opcode=>"ADC", :hex=>"65", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"ADC", :hex=>"69", :args=>"#\\$[0-9a-fA-F]{2}", :bytes=>2},
+   {:opcode=>"ADC", :hex=>"69", :args=>"#[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"ADC", :hex=>"6d", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
-   {:opcode=>"ADC", :hex=>"71", :args=>"(\\$[0-9a-fA-F]{2}),Y", :bytes=>2},
+   {:opcode=>"ADC", :hex=>"71", :args=>"\\(\\$[0-9a-fA-F]{2}\\),Y", :bytes=>2},
    {:opcode=>"ADC", :hex=>"75", :args=>"\\$[0-9a-fA-F]{2},X", :bytes=>2},
    {:opcode=>"ADC", :hex=>"79", :args=>"\\$[0-9a-fA-F]{4},Y", :bytes=>3},
    {:opcode=>"ADC", :hex=>"7d", :args=>"\\$[0-9a-fA-F]{4},X", :bytes=>3}],
@@ -118,10 +119,10 @@ class Assembler
     :bytes=>2}],
  "SEI"=>[{:opcode=>"SEI", :hex=>"78", :args=>"", :bytes=>1}],
  "STA"=>
-  [{:opcode=>"STA", :hex=>"81", :args=>"(\\$[0-9a-fA-F]{2},X)", :bytes=>2},
+  [{:opcode=>"STA", :hex=>"81", :args=>"\\(\\$[0-9a-fA-F]{2},X\\)", :bytes=>2},
    {:opcode=>"STA", :hex=>"85", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"STA", :hex=>"8d", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
-   {:opcode=>"STA", :hex=>"91", :args=>"(\\$[0-9a-fA-F]{2}),Y", :bytes=>2},
+   {:opcode=>"STA", :hex=>"91", :args=>"\\(\\$[0-9a-fA-F]{2}\\),Y", :bytes=>2},
    {:opcode=>"STA", :hex=>"95", :args=>"\\$[0-9a-fA-F]{2},X", :bytes=>2},
    {:opcode=>"STA", :hex=>"99", :args=>"\\$[0-9a-fA-F]{4},Y", :bytes=>3},
    {:opcode=>"STA", :hex=>"9d", :args=>"\\$[0-9a-fA-F]{4},X", :bytes=>3}],
@@ -145,21 +146,24 @@ class Assembler
  "TXS"=>[{:opcode=>"TXS", :hex=>"9a", :args=>"", :bytes=>1}],
  "LDY"=>
   [{:opcode=>"LDY", :hex=>"a0", :args=>"#\\$[0-9a-fA-F]{2}", :bytes=>2},
+   {:opcode=>"LDY", :hex=>"a0", :args=>"#[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"LDY", :hex=>"a4", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"LDY", :hex=>"ac", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
    {:opcode=>"LDY", :hex=>"b4", :args=>"\\$[0-9a-fA-F]{2},X", :bytes=>2},
    {:opcode=>"LDY", :hex=>"bc", :args=>"\\$[0-9a-fA-F]{4},X", :bytes=>3}],
  "LDA"=>
-  [{:opcode=>"LDA", :hex=>"a1", :args=>"(\\$[0-9a-fA-F]{2},X)", :bytes=>2},
+  [{:opcode=>"LDA", :hex=>"a1", :args=>"\\(\\$[0-9a-fA-F]{2},X\\)", :bytes=>2},
    {:opcode=>"LDA", :hex=>"a5", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"LDA", :hex=>"a9", :args=>"#\\$[0-9a-fA-F]{2}", :bytes=>2},
+   {:opcode=>"LDA", :hex=>"a9", :args=>"#[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"LDA", :hex=>"ad", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
-   {:opcode=>"LDA", :hex=>"b1", :args=>"(\\$[0-9a-fA-F]{2}),Y", :bytes=>2},
+   {:opcode=>"LDA", :hex=>"b1", :args=>"\\(\\$[0-9a-fA-F]{2}\\),Y", :bytes=>2},
    {:opcode=>"LDA", :hex=>"b5", :args=>"\\$[0-9a-fA-F]{2},X", :bytes=>2},
    {:opcode=>"LDA", :hex=>"b9", :args=>"\\$[0-9a-fA-F]{4},Y", :bytes=>3},
    {:opcode=>"LDA", :hex=>"bd", :args=>"\\$[0-9a-fA-F]{4},X", :bytes=>3}],
  "LDX"=>
   [{:opcode=>"LDX", :hex=>"a2", :args=>"#\\$[0-9a-fA-F]{2}", :bytes=>2},
+   {:opcode=>"LDX", :hex=>"a2", :args=>"#[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"LDX", :hex=>"a6", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"LDX", :hex=>"ae", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
    {:opcode=>"LDX", :hex=>"b6", :args=>"\\$[0-9a-fA-F]{2},Y", :bytes=>2},
@@ -179,11 +183,11 @@ class Assembler
    {:opcode=>"CPY", :hex=>"c4", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"CPY", :hex=>"cc", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3}],
  "CMP"=>
-  [{:opcode=>"CMP", :hex=>"c1", :args=>"(\\$[0-9a-fA-F]{2},X)", :bytes=>2},
+  [{:opcode=>"CMP", :hex=>"c1", :args=>"\\(\\$[0-9a-fA-F]{2},X\\)", :bytes=>2},
    {:opcode=>"CMP", :hex=>"c5", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"CMP", :hex=>"c9", :args=>"#\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"CMP", :hex=>"cd", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
-   {:opcode=>"CMP", :hex=>"d1", :args=>"(\\$[0-9a-fA-F]{2}),Y", :bytes=>2},
+   {:opcode=>"CMP", :hex=>"d1", :args=>"\\(\\$[0-9a-fA-F]{2}\\),Y", :bytes=>2},
    {:opcode=>"CMP", :hex=>"d5", :args=>"\\$[0-9a-fA-F]{2},X", :bytes=>2},
    {:opcode=>"CMP", :hex=>"d9", :args=>"\\$[0-9a-fA-F]{4},Y", :bytes=>3},
    {:opcode=>"CMP", :hex=>"dd", :args=>"\\$[0-9a-fA-F]{4},X", :bytes=>3}],
@@ -206,11 +210,11 @@ class Assembler
    {:opcode=>"CPX", :hex=>"e4", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"CPX", :hex=>"ec", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3}],
  "SBC"=>
-  [{:opcode=>"SBC", :hex=>"e1", :args=>"(\\$[0-9a-fA-F]{2},X)", :bytes=>2},
+  [{:opcode=>"SBC", :hex=>"e1", :args=>"\\(\\$[0-9a-fA-F]{2},X\\)", :bytes=>2},
    {:opcode=>"SBC", :hex=>"e5", :args=>"\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"SBC", :hex=>"e9", :args=>"#\\$[0-9a-fA-F]{2}", :bytes=>2},
    {:opcode=>"SBC", :hex=>"ed", :args=>"\\$[0-9a-fA-F]{4}", :bytes=>3},
-   {:opcode=>"SBC", :hex=>"f1", :args=>"(\\$[0-9a-fA-F]{2}),Y", :bytes=>2},
+   {:opcode=>"SBC", :hex=>"f1", :args=>"\\(\\$[0-9a-fA-F]{2}\\),Y", :bytes=>2},
    {:opcode=>"SBC", :hex=>"f5", :args=>"\\$[0-9a-fA-F]{2},X", :bytes=>2},
    {:opcode=>"SBC", :hex=>"f9", :args=>"\\$[0-9a-fA-F]{4},Y", :bytes=>3},
    {:opcode=>"SBC", :hex=>"fd", :args=>"\\$[0-9a-fA-F]{4},X", :bytes=>3}],
@@ -235,28 +239,39 @@ class Assembler
     @start = program_start
   end
 
+  def get_opcode(line)
+    op = /([a-zA-Z]{3})\s?([^\s]*)/.match(line)
+    if op then
+      op1 = op[1]
+      raise "No operation" unless @@operations[op1]
+      found = false
+      @@operations[op1].each do |opcode|
+        r = Regexp.new(opcode[:args])
+        match = r.match(op[2])
+        if match and match.to_s.size == op[2].size #full match only
+          return {opcode: opcode, args: op[2]}
+        end
+      end
+      puts line unless found
+    end
+  end
+
   def assemble(input)
-    @input = input || ""
+    @input = input
     remove_comments
     @program = parse_labels
     @result = ""
     count = @start || 0
     @bytes = 0
     @input.each_line do |line|
-      op = /([A-Z]{3})\s?([^\s]*)/.match(line)
-      if op then
-        raise "No operation" unless @@operations[op[1]]
-        @@operations[op[1]].each do |opcode|
-          r = Regexp.new(opcode[:args])
-          match = r.match(op[2])
-          if match and match.to_s.size == op[2].size #full match only
-            @result << format_opcode(opcode, op[2]) + " "
-            @bytes += opcode[:bytes]
-            @program.lines[count] = @bytes
-            count +=1
-            break
-          end
-        end
+      line = line.upcase
+      opcode = get_opcode(line)
+      if opcode
+        args = opcode[:args]
+        opcode = opcode[:opcode]
+        @result << format_opcode(opcode, args) + " "
+        @bytes += opcode[:bytes]
+        count += 1
       end
     end
     puts "Successfully assembled." + " Bytes: " + @bytes.to_s
@@ -265,12 +280,12 @@ class Assembler
 
   def format_label(ops, bytes)
     if @program.labels[ops] then
-      target = @program.lines[@program.labels[ops] - 1] || 0
+      target = @program.labels[ops]
       if bytes == 3 then
-        ops = "%04x" % (target + @start)
+        ops = "%04x" % (target)
       else
-        target = @program.lines[@program.labels[ops] - 1] || @bytes
-        target = 254 - (@bytes - target) #255 - 1 because the current byte must be jumped behind
+        target = @program.labels[ops] - (@start + @bytes) - 2 #-2 because the current opcode is already jumped
+        target = 256 + target if target < 0
         ops = "%02x" % target
       end
     end
@@ -279,10 +294,10 @@ class Assembler
 
   def format_opcode(opcode, ops)
     bytes = opcode[:bytes]
-    ops = ops.gsub('$', "")
-    ops = ops.gsub('#', "")
+    ops = ops.delete '$#(),'
     res = "#{opcode[:hex]}"
     ops = format_label(ops, bytes)
+    ops = ops.delete('XY').downcase #yeah this is stupid
     if bytes == 1 then
       return res
     elsif bytes == 2
@@ -314,15 +329,16 @@ class Assembler
     count = @start
     @input.each_line do |line|
       stripped = line.strip
+      line = line.upcase
       match = /([a-zA-Z0-9_]*):(.*)/.match(line)
+      opcode = get_opcode(line) unless match
+      count += opcode[:opcode][:bytes] if opcode
       if match then
         res.labels[match[1]] = count
         if match[2] then
-          count += 1
           result << match[2] + "\n"
         end
       elsif stripped != ""
-        count += 1
         result << line
       end
     end
@@ -340,8 +356,7 @@ class Assembler
         file << ("%04x: " % @start)
         res.each do |byte|
           count += 1
-          file << byte
-          file << " " if count % 2 == 0
+          file << byte + " "
           file << ("\n%04x: " % (@start + count)) if count % 16 == 0
         end
       end
